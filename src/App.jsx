@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-
+   
   return (
     <>
       <section id="center">
@@ -16,7 +16,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1> get started </h1>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
@@ -27,6 +27,8 @@ function App() {
           onClick={() => setCount((count) => count + 1)}
         >
           Count is {count}
+          <br />
+          new count is {count}
         </button>
       </section>
 
