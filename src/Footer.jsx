@@ -1,8 +1,10 @@
+import './Footer.css'
 
 function Footer() {
     return (
-        <div>
-             <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <div className="footer-center">
+             <a href="/home">Home</a>
+             <a href="/contactos">Contact</a>
         </div>
     )
 }
