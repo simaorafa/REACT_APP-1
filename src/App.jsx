@@ -6,6 +6,7 @@ import Mensagem from './Mensagem';
 import Alerta from './Alerta';
 import Contador from './Contador';
 import Formulario from './Formulario';
+import Tarefas from './Tarefas';
 import './App.css'
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
             <Alerta tipo="danger" texto="o meu novo alerta!" />
             
             <Formulario />
+
+            <Tarefas />
 
 
         </div>
