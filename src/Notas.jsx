@@ -1,90 +1,124 @@
 import React, { useState } from 'react';
 
-function Formulario() {
-    // Estado único "formData" guarda todos os campos do formulário num objeto
-    const [formData, setFormData] = useState({
-        nome: '',
-        email: '',
-        telefone: '',
-        morada: '',
-        codigopostal: '',
-        mensagem: ''
+function Notas() {
+
+    const Receberinfo = () => ({
+        nomedoaluno: "",
+        disciplina: "",
+        notadostestes: '',
+        percentagemdostestes: '',
+        notadostrabalhos: '',
+        percentagemdostrabalhos: '',
+        notadasatitudes: '',
+        percentagemdostrabalhos: '',
+
     });
-    // Guarda os dados submetidos (para mostrar depois do envio)
+
+    const [tarefas, setTarefas] = useState([]);
+
     const [dadosSubmetidos, setDadosSubmetidos] = useState(null);
-    // Esta função é chamada quando o formulário é submetido
+
     function handleSubmit(e) {
-        e.preventDefault(); // impede o recarregamento da página
-        setDadosSubmetidos(formData); // guarda os dados preenchidos
+        e.preventDefault(); 
+        setDadosSubmetidos(formData); 
+        const novaTarefa = {
+            id: Date.now(),
+            nomedoaluno: formData.nomedoaluno,
+            notadostestes: formData.notadostestes,
+            percentagemdostestes: formData.percentagemdostestes,
+            data: formData.data,
+            descricao: formData.descricao
+        };
+        setTarefas([...tarefas, novaTarefa]);
     }
-    // Limpa o formulário e os dados apresentados
-    function limparFormulario() {
-        setFormData({ nome: '', email: '', telefone: '', morada: '', codigopostal: '', mensagem: '' });
-        setDadosSubmetidos(null);
+
+    function calcular() {
+
     }
+
     return (
-        <div className="mt-4">
-            <form onSubmit={handleSubmit}>
-                {/* Cada campo é controlado — o valor vem do estado React */}
-                <div className="form-group">
-                    <label>Nome</label>
-                    <input type="text" className="form-control" value={formData.nome} onChange={(e) =>
+        <div className=" mt-4 row">
 
-                        setFormData({ ...formData, nome: e.target.value })} required />
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" value={formData.email} onChange={(e) =>
-
-                        setFormData({ ...formData, email: e.target.value })} required />
-                </div>
-                <div className="form-group">
-                    <label>Telefone</label>
-                    <input type="tel" className="form-control" value={formData.telefone} onChange={(e) =>
-
-                        setFormData({ ...formData, telefone: e.target.value })} />
-                </div>
-                <div className="form-group">
-                    <label>Morada</label>
-                    <input type="text" className="form-control" value={formData.morada} onChange={(e) =>
-
-                        setFormData({ ...formData, morada: e.target.value })} required />
-                </div>
-                <div className="form-group">
-                    <label>Código Postal</label>
-                    <input type="text" className="form-control" value={formData.codigopostal} onChange={(e) =>
-
-                        setFormData({ ...formData, codigopostal: e.target.value })} required />
-                </div>
-                <div className="form-group">
-
-                    <label>Mensagem</label>
-                    <textarea className="form-control" rows="3" value={formData.mensagem} onChange={(e) =>
-
-                        setFormData({ ...formData, mensagem: e.target.value })}></textarea>
-                </div>
-                {/* Botões de ação */}
-                <button className="btn btn-success mr-2">Enviar</button>
-
-                <button type="button" className="btn btn-outline-secondary"
-
-                    onClick={limparFormulario}>Limpar</button>
-            </form>
-            {/* Mostra os dados submetidos se existirem */}
-            {dadosSubmetidos && (
-                <div className="card mt-4">
-                    <div className="card-body">
-                        <h5 className="card-title">Dados Recebidos</h5>
-                        <p><strong>Nome:</strong> {dadosSubmetidos.nome}</p>
-                        <p><strong>Email:</strong> {dadosSubmetidos.email}</p>
-                        <p><strong>Telefone:</strong> {dadosSubmetidos.telefone}</p>
-                        <p><strong>Morada:</strong> {dadosSubmetidos.morada}</p>
-                        <p><strong>Código Postal:</strong> {dadosSubmetidos.codigopostal}</p>
-                        <p><strong>Mensagem:</strong> {dadosSubmetidos.mensagem}</p>
+            <div className="col-6">
+                <form onSubmit={handleSubmit}>
+                    {/* Cada campo é controlado — o valor vem do estado React */}
+                    <div className="form-group">
+                        <label>Nome do aluno</label>
+                        <input type="text" className="form-control" value={formData.nomedoaluno} onChange={(e) =>
+                            setFormData({ ...formData, nomedoaluno: e.target.value })} required />
                     </div>
-                </div>
-            )}
+                    <div className="form-group">
+                        <label>Nota dos testes</label>
+                        <input type="number" className="form-control" value={formData.notadostestes} onChange={(e) =>
+
+                            setFormData({ ...formData, notadostestes: parseFloat(e.target.value) || 0 })} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Percentagem dos testes</label>
+                        <input type="number" className="form-control" value={formData.percentagemdostestes} onChange={(e) =>
+
+                            setFormData({ ...formData, percentagemdostestes: parseFloat(e.target.value) || 0 })} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Percentagem dos trabalhos</label>
+                        <input type="number" className="form-control" value={formData.percentagemdostrabalhos} onChange={(e) =>
+
+                            setFormData({ ...formData, percentagemdostrabalhos: parseFloat(e.target.value) || 0 })} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Nota dos trabalhos</label>
+                        <input type="number" className="form-control" value={formData.notadostrabalhos} onChange={(e) =>
+
+                            setFormData({ ...formData, notadostrabalhos: parseFloat(e.target.value) || 0 })} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Nota das atitudes</label>
+                        <input type="number" className="form-control" value={formData.notadasatitudes} onChange={(e) =>
+
+                            setFormData({ ...formData, notadasatitudes: parseFloat(e.target.value) || 0 })} required />
+                    </div>
+
+                    <button type="button" class="btn btn-outline-dark">calcular</button>
+                    onClick={calcular}
+
+                </form>
+            </div>
+
+            <div className="col-6">
+                {dadosSubmetidos && (
+                    <div className="card mt-4">
+                        <div className="card-body">
+                            <h5 className="card-title">Dados Recebidos</h5>
+                            <p><strong>Nome do aluno:</strong> {dadosSubmetidos.nomedoaluno}</p>
+                            <p><strong>Nota dos testes:</strong> {dadosSubmetidos.notadostestes}</p>
+                            <p><strong>Percentagem dos testes:</strong> {dadosSubmetidos.percentagemdostestes}</p>
+                            <p><strong>Percentagem dos trabalhos:</strong> {dadosSubmetidos.percentagemdostrabalhos}</p>
+                            <p><strong>Nota dos trabalhos:</strong> {dadosSubmetidos.notadostrabalhos}</p>
+                            <p><strong>Nota das atitudes:</strong> {dadosSubmetidos.notadasatitudes}</p>
+                            <button type="button" className="btn btn-outline-secondary"
+                                onClick={() => eliminaTarefa(formData.id)}>Eliminar</button>
+                        </div>
+                    </div>
+                )}
+
+                <ul className="list-group mt-4">
+                    {tarefas.map((notas) => (
+                        <li key={notas.id} className="list-item">
+                            <p>{notas.nomedoaluno}</p>
+                            <p>{notas.notadostestes}</p>
+                            <p>{notas.percentagemdostestes}</p>
+                            <p>{notas.percentagemdostrabalhos}</p>
+                            <p>{notas.notadostrabalhos}</p>
+                            <p>{notas.notadasatitudes}</p>
+                            <button type="button" className="btn btn-outline-dark"
+                                onClick={() => calcular(notas.id)}>Calcular</button>
+                        </li>
+                    ))}
+                </ul>
+
+            </div>
         </div>
+
     );
 }
-export default Formulario;
+export default Notas;
