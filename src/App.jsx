@@ -12,11 +12,39 @@ import './App.css'
 
 function App() {
     return (
+        <div className="container mt-4">
+            <h1 className="text-center text-primary">Olá React!</h1>
+            <p className="lead text-center">
+                Este é o teu primeiro componente React.
+            </p>
+           
+            <button
+                className="btn btn-success d-block mx-auto"
+                onClick={() => alert('Olá, Simão!')}
+            >
+                Clica-me!
+            </button>
 
-    <Notas />
+            <Contador/>
 
+            <h1 className="text-center">Componentes e Props</h1>
+            
+            <Mensagem mytext="Bem-vindo à tua primeira aplicação React!" />
+            <Mensagem mytext="Os componentes permitem reutilizar código!" />
+
+            <Alerta tipo="success" texto="o meu novo alerta!" />
+            <Alerta tipo="warning" texto="o meu novo alerta!" />
+            <Alerta tipo="danger" texto="o meu novo alerta!" />
+            
+            <Formulario />
+
+            {/* <Tarefas /> */}
+
+            < Notas/>
+
+
+        </div>
     );
 }
 
 export default App
-

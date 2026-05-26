@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Notas() {
 
-    const Receberinfo = () => ({
+    const Receberinfo = [formData, setFormData] = useState({
         nomedoaluno: "",
         disciplina: "",
         notadostestes: '',
@@ -14,13 +14,13 @@ function Notas() {
 
     });
 
-    const [tarefas, setTarefas] = useState([]);
+    const [tarefas, setTarefas] = useState([formData, setFormData]);
 
     const [dadosSubmetidos, setDadosSubmetidos] = useState(null);
 
     function handleSubmit(e) {
-        e.preventDefault(); 
-        setDadosSubmetidos(formData); 
+        e.preventDefault(); b
+        setDadosSubmetidos(formData);
         const novaTarefa = {
             id: Date.now(),
             nomedoaluno: formData.nomedoaluno,
@@ -118,7 +118,12 @@ function Notas() {
 
             </div>
         </div>
-
     );
-}
+        formData.notasdostestes > 9.5 && formData.percentagemdostestes > 50 && formData.percentagemdostrabalhos > 50 && formData.notadostrabalhos > 9.5 && formData.notadasatitudes > 9.5 ? (
+            alert("Aprovado!")
+        ) : (
+        alert("Reprovado!")
+    )
+    }
+
 export default Notas;
