@@ -14,23 +14,60 @@ function Notas() {
         atitudesPC: '',
     })
 
-    const [notas, setNotas] = useState([])
+    const [notas, setNotas] = useState([]) 
 
     const [dadosSubmetidos, setDadosSubmetidos] = useState(null);
+
+    const MAX_NOTA = 20;
+
+    const sanitizeNota = (value) => {
+        if (value === '' || value === null || value === undefined) {
+            return '';
+        }
+
+        const numero = Number(value);
+        if (Number.isNaN(numero)) {
+            return '';
+        }
+
+        if (numero < 0) {
+            return '0';
+
+        }
+
+        if (numero > MAX_NOTA) {
+            return String(MAX_NOTA);
+        }
+
+        return String(numero);
+    };
+
+    const sanitizeFormData = (data) => ({
+        ...data,
+        notaTestes: sanitizeNota(data.notaTestes),
+        testesPC: sanitizeNota(data.testesPC),
+        notaTrabalhos: sanitizeNota(data.notaTrabalhos),
+        trabalhosPC: sanitizeNota(data.trabalhosPC),
+        notaAtitudes: sanitizeNota(data.notaAtitudes),
+        atitudesPC: sanitizeNota(data.atitudesPC),
+    });
 
     function handleSubmit(e) {
         e.preventDefault();
 
+        const dadosValidados = sanitizeFormData(formData);
+        setFormData(dadosValidados);
+
         const novaNota = {
             id: Date.now(),
-            nomeAluno: formData.nomeAluno,
-            disciplina: formData.disciplina,
-            notaTestes: formData.notaTestes,
-            testesPC: formData.testesPC,
-            notaTrabalhos: formData.notaTrabalhos,
-            trabalhosPC: formData.trabalhosPC,
-            notaAtitudes: formData.notaAtitudes,
-            atitudesPC: formData.atitudesPC,
+            nomeAluno: dadosValidados.nomeAluno,
+            disciplina: dadosValidados.disciplina,
+            notaTestes: dadosValidados.notaTestes,
+            testesPC: dadosValidados.testesPC,
+            notaTrabalhos: dadosValidados.notaTrabalhos,
+            trabalhosPC: dadosValidados.trabalhosPC,
+            notaAtitudes: dadosValidados.notaAtitudes,
+            atitudesPC: dadosValidados.atitudesPC,
         };
 
         setNotas([...notas, novaNota]);
@@ -57,7 +94,18 @@ function Notas() {
     }
 
     function limparFormulario() {
-        setFormData({ id: '', nomeAluno: '', disciplina: '', notaTestes: '', testesPC: '', testesPC: '', notaTrabalhos: '', trabalhosPC: '', notaAtitudes: '', atitudes: '', atitudesPC: '' });
+        setFormData({
+            id: '',
+            nomeAluno: '',
+            disciplina: '',
+            notaTestes: '',
+            testesPC: '',
+            notaTrabalhos: '',
+            trabalhosPC: '',
+            notaAtitudes: '',
+            atitudes: '',
+            atitudesPC: '',
+        });
         setDadosSubmetidos(null);
     }
 
@@ -122,7 +170,7 @@ function Notas() {
                         <label>Nota dos testes</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.notaTestes} onChange={(e) =>
 
-                            setFormData({ ...formData, notaTestes: e.target.value })} required />
+                            setFormData({ ...formData, notaTestes: sanitizeNota(e.target.value) })} required />
 
                     </div>
                 </form>
@@ -135,7 +183,7 @@ function Notas() {
                         <label>Testes (%)</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.testesPC} onChange={(e) =>
 
-                            setFormData({ ...formData, testesPC: e.target.value })} required />
+                            setFormData({ ...formData, testesPC: sanitizeNota(e.target.value) })} required />
                     </div>
                 </form>
             </div>
@@ -150,7 +198,7 @@ function Notas() {
                         <label>Nota dos trabalhos</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.notaTrabalhos} onChange={(e) =>
 
-                            setFormData({ ...formData, notaTrabalhos: e.target.value })} required />
+                            setFormData({ ...formData, notaTrabalhos: sanitizeNota(e.target.value) })} required />
                     </div>
                 </form>
             </div>
@@ -161,7 +209,7 @@ function Notas() {
                         <label>Trabalhos (%)</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.trabalhosPC} onChange={(e) =>
 
-                            setFormData({ ...formData, trabalhosPC: e.target.value })} required />
+                            setFormData({ ...formData, trabalhosPC: sanitizeNota(e.target.value) })} required />
                     </div>
                 </form>
             </div>
@@ -176,7 +224,7 @@ function Notas() {
                         <label>Nota das atitudes</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.notaAtitudes} onChange={(e) =>
 
-                            setFormData({ ...formData, notaAtitudes: e.target.value })} required />
+                            setFormData({ ...formData, notaAtitudes: sanitizeNota(e.target.value) })} required />
                     </div>
                 </form>
             </div>
@@ -187,7 +235,7 @@ function Notas() {
                         <label>Atitudes (%)</label>
                         <input type="number" min="0" max="20" className="form-control" value={formData.atitudesPC} onChange={(e) =>
 
-                            setFormData({ ...formData, atitudesPC: e.target.value })} required />
+                            setFormData({ ...formData, atitudesPC: sanitizeNota(e.target.value) })} required />
                     </div>
                 </form>
             </div>
